@@ -1,0 +1,298 @@
+%YAML 1.2
+---
+name: AutoHotKey2
+scope: source.ahk
+version: 2
+
+file_extensions:
+  - ahk
+
+variables:
+
+  keyword_control: \b(?i:if|else|return|loop|break|for|while|class|extends|catch|finally|throw|try|until|continue|gosub|goto|super)\b
+  keyword_operator: \b(?i:and|or|not|in|is|contains)\b
+
+  support: \b(?i:Abs|ACos|ASin|ATan|BlockInput|CallbackCreate|CallbackFree|CaretGetPos|Ceil|Chr|Click|ClipWait|ComCall|ComObjActive|ComObjConnect|ComObjFlags|ComObjFromPtr|ComObjGet|ComObjQuery|ComObjType|ComObjValue|ControlAddItem|ControlChooseIndex|ControlChooseString|ControlClick|ControlDeleteItem|ControlFindItem|ControlFocus|ControlGetChecked|ControlGetChoice|ControlGetClassNN|ControlGetEnabled|ControlGetExStyle|ControlGetFocus|ControlGetHwnd|ControlGetIndex|ControlGetItems|ControlGetPos|ControlGetStyle|ControlGetText|ControlGetVisible|ControlHide|ControlHideDropDown|ControlMove|ControlSend|ControlSendText|ControlSetChecked|ControlSetEnabled|ControlSetExStyle|ControlSetStyle|ControlSetText|ControlShow|ControlShowDropDown|CoordMode|Cos|Critical|DateAdd|DateDiff|DetectHiddenText|DetectHiddenWindows|DirCopy|DirCreate|DirDelete|DirExist|DirMove|DirSelect|DllCall|Download|DriveEject|DriveGetCapacity|DriveGetFilesystem|DriveGetLabel|DriveGetList|DriveGetSerial|DriveGetSpaceFree|DriveGetStatus|DriveGetStatusCD|DriveGetType|DriveLock|DriveRetract|DriveSetLabel|DriveUnlock|Edit|EditGetCurrentCol|EditGetCurrentLine|EditGetLine|EditGetLineCount|EditGetSelectedText|EditPaste|EnvGet|EnvSet|Exit|ExitApp|Exp|FileAppend|FileCopy|FileCreateShortcut|FileDelete|FileEncoding|FileExist|FileGetAttrib|FileGetShortcut|FileGetSize|FileGetTime|FileGetVersion|FileInstall|FileMove|FileOpen|FileRead|FileRecycle|FileRecycleEmpty|FileSelect|FileSetAttrib|FileSetTime|Floor|Format|FormatTime|GetKeyName|GetKeySC|GetKeyState|GetKeyVK|GetMethod|GroupActivate|GroupAdd|GroupClose|GroupDeactivate|GuiCtrlFromHwnd|GuiFromHwnd|HasBase|HasMethod|HasProp|HotIf|HotIfWinActive|HotIfWinExist|HotIfWinNotActive|HotIfWinNotExist|Hotkey|Hotstring|IL_Add|IL_Create|IL_Destroy|ImageSearch|IniDelete|IniRead|IniWrite|InputBox|InstallKeybdHook|InstallMouseHook|InStr|IsAlnum|IsAlpha|IsDigit|IsFloat|IsInteger|IsLabel|IsLower|IsNumber|IsObject|IsSet|IsSetRef|IsSpace|IsTime|IsUpper|IsXDigit|KeyHistory|KeyWait|ListHotkeys|ListLines|ListVars|ListViewGetContent|Ln|LoadPicture|Log|LTrim|Max|MenuFromHandle|MenuSelect|Min|Mod|MonitorGet|MonitorGetCount|MonitorGetName|MonitorGetPrimary|MonitorGetWorkArea|MouseClick|MouseClickDrag|MouseGetPos|MouseMove|MsgBox|NumGet|NumPut|ObjAddRef|ObjBindMethod|ObjFromPtr|ObjFromPtrAddRef|ObjGetBase|ObjGetCapacity|ObjHasOwnProp|ObjOwnPropCount|ObjOwnProps|ObjPtr|ObjPtrAddRef|ObjRelease|ObjSetBase|ObjSetCapacity|OnClipboardChange|OnError|OnExit|OnMessage|Ord|OutputDebug|Pause|Persistent|PixelGetColor|PixelSearch|PostMessage|ProcessClose|ProcessExist|ProcessSetPriority|ProcessWait|ProcessWaitClose|Random|RegDelete|RegDeleteKey|RegExMatch|RegExReplace|RegRead|RegWrite|Reload|Round|RTrim|Run|RunAs|RunWait|Send|SendEvent|SendInput|SendLevel|SendMessage|SendMode|SendPlay|SendText|SetCapslockState|SetControlDelay|SetDefaultMouseSpeed|SetKeyDelay|SetMouseDelay|SetNumlockState|SetRegView|SetScrollLockState|SetStoreCapsLockMode|SetTimer|SetTitleMatchMode|SetWinDelay|SetWorkingDir|Shutdown|Sin|Sleep|Sort|SoundBeep|SoundGetInterface|SoundGetMute|SoundGetName|SoundGetVolume|SoundPlay|SoundSetMute|SoundSetVolume|SplitPath|Sqrt|StatusBarGetText|StatusBarWait|StrCompare|StrGet|StrLen|StrLower|StrPtr|StrPut|StrReplace|StrSplit|StrTitle|StrUpper|SubStr|Suspend|SysGet|SysGetIPAddresses|Tan|Thread|ToolTip|TraySetIcon|TrayTip|Trim|Type|VarSetStrCapacity|VerCompare|WinActivate|WinActivateBottom|WinActive|WinClose|WinExist|WinGetClass|WinGetClientPos|WinGetControls|WinGetControlsHwnd|WinGetCount|WinGetExStyle|WinGetID|WinGetIDLast|WinGetList|WinGetMinMax|WinGetPID|WinGetPos|WinGetProcessName|WinGetProcessPath|WinGetStyle|WinGetText|WinGetTitle|WinGetTransColor|WinGetTransparent|WinHide|WinKill|WinMaximize|WinMinimize|WinMinimizeAll|WinMinimizeAllUndo|WinMove|WinMoveBottom|WinMoveTop|WinRedraw|WinRestore|WinSetAlwaysOnTop|WinSetEnabled|WinSetExStyle|WinSetRegion|WinSetStyle|WinSetTitle|WinSetTransColor|WinSetTransparent|WinShow|WinWait|WinWaitActive|WinWaitClose|WinWaitNotActive)\b
+
+  constant_language: \b(?i:A_AhkPath|A_AhkVersion|A_AllowMainWindow|A_AppData|A_AppDataCommon|A_Args|A_Clipboard|A_ComputerName|A_ComSpec|A_ControlDelay|A_CoordModeCaret|A_CoordModeMenu|A_CoordModeMouse|A_CoordModePixel|A_CoordModeToolTip|A_Cursor|A_DD|A_DDD|A_DDDD|A_DefaultMouseSpeed|A_Desktop|A_DesktopCommon|A_DetectHiddenText|A_DetectHiddenWindows|A_EndChar|A_EventInfo|A_FileEncoding|A_HotkeyInterval|A_HotkeyModifierTimeout|A_Hour|A_IconFile|A_IconHidden|A_IconNumber|A_IconTip|A_Index|A_InitialWorkingDir|A_Is64bitOS|A_IsAdmin|A_IsCompiled|A_IsCritical|A_IsPaused|A_IsSuspended|A_KeyDelay|A_KeyDelayPlay|A_KeyDuration|A_KeyDurationPlay|A_Language|A_LastError|A_LineFile|A_LineNumber|A_ListLines|A_LoopField|A_LoopFileAttrib|A_LoopFileDir|A_LoopFileExt|A_LoopFileFullPath|A_LoopFileName|A_LoopFilePath|A_LoopFileShortName|A_LoopFileShortPath|A_LoopFileSize|A_LoopFileSizeKB|A_LoopFileSizeMB|A_LoopFileTimeAccessed|A_LoopFileTimeCreated|A_LoopFileTimeModified|A_LoopReadLine|A_LoopRegKey|A_LoopRegName|A_LoopRegTimeModified|A_LoopRegType|A_MaxHotkeysPerInterval|A_MDay|A_MenuMaskKey|A_Min|A_MM|A_MMM|A_MMMM|A_Mon|A_MouseDelay|A_MouseDelayPlay|A_MSec|A_MyDocuments|A_Now|A_NowUTC|A_OSVersion|A_PriorHotkey|A_PriorKey|A_ProgramFiles|A_Programs|A_ProgramsCommon|A_PtrSize|A_RegView|A_ScreenDPI|A_ScreenHeight|A_ScreenWidth|A_ScriptDir|A_ScriptFullPath|A_ScriptHwnd|A_ScriptName|A_Sec|A_SendLevel|A_SendMode|A_Space|A_StartMenu|A_StartMenuCommon|A_Startup|A_StartupCommon|A_StoreCapsLockMode|A_Tab|A_Temp|A_ThisFunc|A_ThisHotkey|A_TickCount|A_TimeIdle|A_TimeIdleKeyboard|A_TimeIdleMouse|A_TimeIdlePhysical|A_TimeSincePriorHotkey|A_TimeSinceThisHotkey|A_TitleMatchMode|A_TitleMatchModeSpeed|A_TrayMenu|A_UserName|A_WDay|A_WinDelay|A_WinDir|A_WorkingDir|A_YDay|A_Year|A_YWeek|A_YYYY)\b
+  support_class: \b(?i:Any|Array|BoundFunc|Buffer|Class|ClipboardAll|Closure|ComObjArray|ComObject|ComValue|ComValueRef|Enumerator|Error|File|Float|Func|Gui|IndexError|InputHook|Integer|KeyError|Map|MemberError|MemoryError|Menu|MenuBar|MethodError|Number|Object|OSError|Primitive|PropertyError|RegExMatchInfo|String|TargetError|TimeoutError|TypeError|ValueError|VarRef|ZeroDivisionError)\b
+  support_compiler: \b(?i:A_PriorLine|A_WorkFileName)\b
+  support_ankh: \b(?i:A_AhkDir|A_DllDir|A_DllPath|A_GlobalStruct|A_IsDll|A_MainThreadID|A_MemoryModule|A_ModuleHandle|A_ScriptStruct|A_ThreadID|A_ZipCompressionLevel)\b
+  storage_modifier: \b(?i:global|local|static)\b
+
+  hotkeys: (?i:shift|lshift|rshift|alt|lalt|ralt|control|lcontrol|rcontrol|ctrl|lctrl|rctrl|lwin|rwin|appskey|lbutton|rbutton|mbutton|wheeldown|wheelup|wheelleft|wheelright|xbutton[12]|(0*[2-9]|0*1[0-6]?)?joy0*([1-9]|[12]\d|3[12])|space|tab|enter|escape|esc|backspace|bs|delete|del|insert|ins|pgdn|pgup|home|end|up|down|left|right|printscreen|ctrlbreak|pause|scrolllock|capslock|numlock|numpad0|numpad1|numpad2|numpad3|numpad4|numpad5|numpad6|numpad7|numpad8|numpad9|numpadmult|numpadadd|numpadsub|numpaddiv|numpaddot|numpaddel|numpadins|numpadclear|numpadleft|numpadright|numpaddown|numpadup|numpadhome|numpadend|numpadpgdn|numpadpgup|numpadenter|f1|f2|f3|f4|f5|f6|f7|f8|f9|f10|f11|f12|f13|f14|f15|f16|f17|f18|f19|f20|f21|f22|f23|f24|browser_back|browser_forward|browser_refresh|browser_stop|browser_search|browser_favorites|browser_home|volume_mute|volume_down|volume_up|media_next|media_prev|media_stop|media_play_pause|launch_mail|launch_media|launch_app1|launch_app2|vk[a-f\d]{1,2}(sc[a-f\d]+)?|sc[a-f\d]+)
+  hotkey_modifier: (?i:#|\!|\*|\^|\+|&|<|>|<\^>\!|\*|~|\$|UP)
+  newline: (?:\n|$)
+  character_escape: (?i)\`[abefnprstv'"`]
+
+contexts:
+  main:
+    - include: match-comments
+    - include: match-literals
+    - include: match-hotkeys
+    - include: match-keywords
+    - include: match-punctuation
+    - include: match-operators
+    - include: match-constants
+    - include: match-variables
+    - include: match-functions
+
+  match-comments:
+    - include: match-comment-line
+    - include: match-comment-block
+
+  match-comment-line:
+    - match: (^\s*;|\s+;)(\s*\@(?i:function|func))(\s+\w+|\s*)?(?=\n|$)
+      captures:
+        1: comment.line.ahk
+        2: keyword.control.ahk
+        3: entity.name.function.ahk
+      push:
+        - meta_scope: meta.function.ahk
+        - match: ([^0-9]\w+)(?=\([^\)]*(?:\)|$))
+          scope: entity.name.function.ahk
+        - match: \(
+          scope: punctuation.section.parens.begin.ahk
+          push:
+            - meta_scope: meta.parameters.ahk
+            - match: \)
+              scope: punctuation.section.parens.end.ahk
+              pop: true
+            - match: (\w+)
+              scope: variable.parameter.function.ahk
+            - match: (\?|\&)
+              scope: keyword.operator.ahk
+            - match: (:=)
+              scope: keyword.operator.assigment.ahk
+              push:
+                - match: (?=,|\))
+                  pop: true
+                - include: main
+          pop: true
+    - match: (^\s*|\s+);
+      scope: punctuation.definition.comment.ahk
+      push: pop-comment-line
+
+  pop-comment-line:
+    - meta_scope: comment.line.ahk
+    - include: pop-on-eol
+
+  match-comment-block:
+    - match: /\*
+      scope: punctuation.definition.comment.begin.ahk
+      push: pop-comment-block
+
+  pop-comment-block:
+    - meta_scope: comment.block.ahk
+    - match: \*/
+      scope: punctuation.definition.comment.end.ahk
+      pop: true
+
+  match-literals:
+    - include: match-floats
+    - include: match-hexadecimals
+    - include: match-integers
+    - include: match-strings
+
+  match-floats:
+    - match: '([-+]?[0-9]*)(\.)([0-9]+([eE][-+]?[0-9]+)?)'
+      scope: meta.number.float.decimal.ahk
+      captures:
+        1: constant.numeric.value.ahk
+        2: punctuation.separator.decimal.ahk
+        3: constant.numeric.value.ahk
+
+  match-hexadecimals:
+    - match: \b(0[xX])([0-9A-Fa-f]+)?\b
+      scope: meta.number.integer.hexadecimal.ahk
+      captures:
+        1: constant.numeric.base.ahk
+        2: constant.numeric.value.ahk
+
+  match-integers:
+    - match: \b(?:\d+(?:_\d+)*([eE][-+]?[0-9]+)?)\b
+      scope: meta.number.integer.decimal.ahk constant.numeric.value.ahk
+
+  match-strings:
+    - include: match-string-single
+    - include: match-string-double
+
+  match-string-single:
+    - match: "'"
+      scope: punctuation.definition.string.begin.ahk
+      push:
+        - meta_scope: string.quoted.single.ahk
+        - match: "'"
+          scope: punctuation.definition.string.end.ahk
+          pop: true
+        - include: match-character-escape
+
+  match-string-double:
+    - match: '"'
+      scope: punctuation.definition.string.begin.ahk
+      push:
+        - meta_scope: string.quoted.double.ahk
+        - match: '"'
+          scope: punctuation.definition.string.end.ahk
+          pop: true
+        - include: match-character-escape
+
+  match-character-escape:
+    - match: '{{character_escape}}'
+      scope: constant.character.escape.ahk
+    - match: \`.
+      scope: invalid.illegal.escape.ahk
+
+  match-keywords:
+    - include: match-keyword-control
+    - include: match-keyword-import
+    - include: match-support-function
+    - include: match-support-class
+
+  match-keyword-control:
+    - match: \b(?i:loop)(\s+(?i:files|parse|read|reg))?\b
+      scope: keyword.control.ahk
+    - match: '{{keyword_control}}'
+      scope: keyword.control.ahk
+    - match: '{{storage_modifier}}'
+      scope: storage.modifier.ahk
+      push:
+        - match: \w+
+          scope: variable.other.readwrite
+          pop: true
+
+  match-keyword-import:
+    - match: ^\s*(#)((?i:includeagain|include))\s+(.*?)\s*(;.*)?$
+      scope: meta.preprocessor.include.ahk
+      captures:
+        1: keyword.control.import.include.ahk
+        2: keyword.control.import.include.ahk
+        3: entity.name.section.namespace.ahk
+
+  match-support-function:
+    - match: '{{support}}'
+      scope: support.function.ahk
+
+  match-support-class:
+    - match: '(?<!\.){{support_class}}'
+      scope: support.class.ahk
+
+  match-support-compiler:
+    - match: '{{support_compiler}}'
+      scope: support.type.compiler.ahk
+
+  match-support-ankh:
+    - match: '{{support_ankh}}'
+      scope: support.type.ankh.ahk
+
+  match-operators:
+    - include: match-support-variable
+    - include: match-keyword-operator
+    - match: --
+      scope: keyword.operator.decrement.ahk
+    - match: \+\+
+      scope: keyword.operator.increment.ahk
+    - match: \*\*
+      scope: keyword.operator.power.ahk
+    - match: \.=|\+=|-=|\*=|\?=
+      scope: keyword.operator.assigment.augmented.ahk
+    - match: :=
+      scope: keyword.operator.assigment.ahk
+    - match: '=|!=|<=|>=|=\?=|<|>'
+      scope: keyword.operator.comparison.ahk
+    - match: \?\?|\&\&|!|\|\|
+      scope: keyword.operator.logical.ahk
+    - match: \+|-|\/|\*
+      scope: keyword.operator.arithmetic.ahk
+    - match: <<|>>>|>>
+      scope: keyword.operator.bitwise.ahk
+    - match: \?|:(?!\:)
+      scope: keyword.operator.ternary.ahk
+    - match: \&|\||\^|~|\%|\#
+      scope: keyword.operator.ahk
+
+  match-keyword-operator:
+    - match: '{{keyword_operator}}'
+      scope: keyword.operator.ahk
+
+  match-punctuation:
+    - include: match-parens
+    - include: match-brackets
+    - include: match-braces
+    - include: match-separator
+    - include: match-accessor
+
+  match-parens:
+    - match: \(
+      scope: punctuation.section.parens.begin.ahk
+      push:
+        - match: \)
+          scope: punctuation.section.parens.end.ahk
+          pop: true
+        - include: main
+    - match: \)
+      scope: invalid.illegal.ahk
+
+  match-brackets:
+    - match: \[
+      scope: punctuation.section.brackets.begin.ahk
+      push:
+        - match: \]
+          scope: punctuation.section.brackets.end.ahk
+          pop: true
+        - include: main
+    - match: \]
+      scope: invalid.illegal.ahk
+
+  match-braces:
+    - match: \{
+      scope: punctuation.section.braces.begin.ahk
+      push:
+        - match: \}
+          scope: punctuation.section.braces.end.ahk
+          pop: true
+        - include: main
+    - match: \}
+      scope: invalid.illegal.ahk
+
+  match-separator:
+    - match: \,
+      scope: punctuation.separator.ahk
+
+  match-accessor:
+    - match: \.(?=\w)
+      scope: punctuation.accessor.dot.ahk
+
+  match-constants:
+    - include: match-predeclared-constants
+    - include: match-buildin-constants
+
+  match-predeclared-constants:
+    - match: \b(?i:True|False|Unset)\b
+      scope: constant.languages.boolean.ahk
+
+  match-buildin-constants:
+    - match: '{{constant_language}}'
+      scope: constant.languages.buildin.ahk
+
+  match-hotkeys:
+    - match: ^\s*(\S+(?:\s+\&\s+\S+)*)(?=::)
+      scope: hotkey.ahk keyword.keys.ahk entity.name.function.ahk
+    - match: '::'
+      scope: hotkey.ahk keyword.keys.assigment.ahk
+    - match: '\b{{hotkeys}}\b'
+      scope: keyword.keys.ahk support.type.buildin.ahk
+
+  match-variables:
+    - match: \b(\w+)(?=(\s+)?:=)
+      scope: variable.other.readwrite.ahk
+    - match: \b(\w+)\b(?=[^\(])
+      scope: variable.other.readwrite.ahk
+
+  match-functions:
+    - match: \b(\w+)\b(?=\()
+      scope: entity.name.function.ahk
+
+  pop-on-eol:
+    - match: '{{newline}}'
+      pop: true
