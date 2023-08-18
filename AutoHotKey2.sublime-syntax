@@ -8,7 +8,6 @@ file_extensions:
   - ahk
 
 variables:
-
   keyword_control: \b(?i:if|else|return|loop|break|for|while|class|extends|catch|finally|throw|try|until|continue|gosub|goto|super)\b
   keyword_operator: \b(?i:and|or|not|in|is|contains)\b
 
@@ -26,49 +25,28 @@ variables:
   character_escape: (?i)\`[abefnprstv'"`]
 
 contexts:
-  main:
+  prototype:
+    - include: match-functions-declaration
     - include: match-comments
-    - include: match-literals
-    - include: match-hotkeys
+
+  main:
+    - include: match-any
+
+  match-any:
     - include: match-keywords
-    - include: match-punctuation
-    - include: match-operators
     - include: match-constants
-    - include: match-variables
+    - include: match-hotkeys
     - include: match-functions
+    - include: match-literals
+    - include: match-operators
+    - include: match-variables
+    - include: match-punctuation
 
   match-comments:
     - include: match-comment-line
     - include: match-comment-block
 
   match-comment-line:
-    - match: (^\s*;|\s+;)(\s*\@(?i:function|func))(\s+\w+|\s*)?(?=\n|$)
-      captures:
-        1: comment.line.ahk
-        2: keyword.control.ahk
-        3: entity.name.function.ahk
-      push:
-        - meta_scope: meta.function.ahk
-        - match: ([^0-9]\w+)(?=\([^\)]*(?:\)|$))
-          scope: entity.name.function.ahk
-        - match: \(
-          scope: punctuation.section.parens.begin.ahk
-          push:
-            - meta_scope: meta.parameters.ahk
-            - match: \)
-              scope: punctuation.section.parens.end.ahk
-              pop: true
-            - match: (\w+)
-              scope: variable.parameter.function.ahk
-            - match: (\?|\&)
-              scope: keyword.operator.ahk
-            - match: (:=)
-              scope: keyword.operator.assigment.ahk
-              push:
-                - match: (?=,|\))
-                  pop: true
-                - include: main
-          pop: true
     - match: (^\s*|\s+);
       scope: punctuation.definition.comment.ahk
       push: pop-comment-line
@@ -86,7 +64,47 @@ contexts:
     - meta_scope: comment.block.ahk
     - match: \*/
       scope: punctuation.definition.comment.end.ahk
-      pop: true
+      pop: 1
+
+  match-keywords:
+    - include: match-keyword-control
+    - include: match-keyword-import
+    - include: match-support-function
+    - include: match-support-class
+    - include: match-support-compiler
+    - include: match-support-ankh
+
+  match-keyword-control:
+    - match: \b(?i:loop)(\s+(?i:files|parse|read|reg))?\b
+      scope: keyword.control.ahk
+    - match: '{{keyword_control}}'
+      scope: keyword.control.ahk
+    - match: '{{storage_modifier}}'
+      scope: storage.modifier.ahk
+
+  match-keyword-import:
+    - match: ^\s*(#)((?i:includeagain|include))\s+(.*?)\s*(;.*)?$
+      scope: meta.preprocessor.include.ahk
+      captures:
+        1: keyword.control.import.include.ahk
+        2: keyword.control.import.include.ahk
+        3: entity.name.section.namespace.ahk
+
+  match-support-function:
+    - match: '{{support}}'
+      scope: support.function.ahk
+
+  match-support-class:
+    - match: '(?<!\.){{support_class}}'
+      scope: support.class.ahk
+
+  match-support-compiler:
+    - match: '{{support_compiler}}'
+      scope: support.type.compiler.ahk
+
+  match-support-ankh:
+    - match: '{{support_ankh}}'
+      scope: support.type.ankh.ahk
 
   match-literals:
     - include: match-floats
@@ -124,7 +142,7 @@ contexts:
         - meta_scope: string.quoted.single.ahk
         - match: "'"
           scope: punctuation.definition.string.end.ahk
-          pop: true
+          pop: 1
         - include: match-character-escape
 
   match-string-double:
@@ -134,7 +152,7 @@ contexts:
         - meta_scope: string.quoted.double.ahk
         - match: '"'
           scope: punctuation.definition.string.end.ahk
-          pop: true
+          pop: 1
         - include: match-character-escape
 
   match-character-escape:
@@ -143,50 +161,7 @@ contexts:
     - match: \`.
       scope: invalid.illegal.escape.ahk
 
-  match-keywords:
-    - include: match-keyword-control
-    - include: match-keyword-import
-    - include: match-support-function
-    - include: match-support-class
-
-  match-keyword-control:
-    - match: \b(?i:loop)(\s+(?i:files|parse|read|reg))?\b
-      scope: keyword.control.ahk
-    - match: '{{keyword_control}}'
-      scope: keyword.control.ahk
-    - match: '{{storage_modifier}}'
-      scope: storage.modifier.ahk
-      push:
-        - match: \w+
-          scope: variable.other.readwrite
-          pop: true
-
-  match-keyword-import:
-    - match: ^\s*(#)((?i:includeagain|include))\s+(.*?)\s*(;.*)?$
-      scope: meta.preprocessor.include.ahk
-      captures:
-        1: keyword.control.import.include.ahk
-        2: keyword.control.import.include.ahk
-        3: entity.name.section.namespace.ahk
-
-  match-support-function:
-    - match: '{{support}}'
-      scope: support.function.ahk
-
-  match-support-class:
-    - match: '(?<!\.){{support_class}}'
-      scope: support.class.ahk
-
-  match-support-compiler:
-    - match: '{{support_compiler}}'
-      scope: support.type.compiler.ahk
-
-  match-support-ankh:
-    - match: '{{support_ankh}}'
-      scope: support.type.ankh.ahk
-
   match-operators:
-    - include: match-support-variable
     - include: match-keyword-operator
     - match: --
       scope: keyword.operator.decrement.ahk
@@ -195,9 +170,9 @@ contexts:
     - match: \*\*
       scope: keyword.operator.power.ahk
     - match: \.=|\+=|-=|\*=|\?=
-      scope: keyword.operator.assigment.augmented.ahk
+      scope: keyword.operator.assignment.augmented.ahk
     - match: :=
-      scope: keyword.operator.assigment.ahk
+      scope: keyword.operator.assignment.ahk
     - match: '=|!=|<=|>=|=\?=|<|>'
       scope: keyword.operator.comparison.ahk
     - match: \?\?|\&\&|!|\|\|
@@ -215,54 +190,6 @@ contexts:
     - match: '{{keyword_operator}}'
       scope: keyword.operator.ahk
 
-  match-punctuation:
-    - include: match-parens
-    - include: match-brackets
-    - include: match-braces
-    - include: match-separator
-    - include: match-accessor
-
-  match-parens:
-    - match: \(
-      scope: punctuation.section.parens.begin.ahk
-      push:
-        - match: \)
-          scope: punctuation.section.parens.end.ahk
-          pop: true
-        - include: main
-    - match: \)
-      scope: invalid.illegal.ahk
-
-  match-brackets:
-    - match: \[
-      scope: punctuation.section.brackets.begin.ahk
-      push:
-        - match: \]
-          scope: punctuation.section.brackets.end.ahk
-          pop: true
-        - include: main
-    - match: \]
-      scope: invalid.illegal.ahk
-
-  match-braces:
-    - match: \{
-      scope: punctuation.section.braces.begin.ahk
-      push:
-        - match: \}
-          scope: punctuation.section.braces.end.ahk
-          pop: true
-        - include: main
-    - match: \}
-      scope: invalid.illegal.ahk
-
-  match-separator:
-    - match: \,
-      scope: punctuation.separator.ahk
-
-  match-accessor:
-    - match: \.(?=\w)
-      scope: punctuation.accessor.dot.ahk
-
   match-constants:
     - include: match-predeclared-constants
     - include: match-buildin-constants
@@ -279,7 +206,7 @@ contexts:
     - match: ^\s*(\S+(?:\s+\&\s+\S+)*)(?=::)
       scope: hotkey.ahk keyword.keys.ahk entity.name.function.ahk
     - match: '::'
-      scope: hotkey.ahk keyword.keys.assigment.ahk
+      scope: hotkey.ahk keyword.keys.assignment.ahk
     - match: '\b{{hotkeys}}\b'
       scope: keyword.keys.ahk support.type.buildin.ahk
 
@@ -293,6 +220,125 @@ contexts:
     - match: \b(\w+)\b(?=\()
       scope: entity.name.function.ahk
 
+  match-functions-declaration:
+    - match: (^\s*;|\s+;)(\s*\@(?i:function|func))(\s+\w+|\s*)?(?=\n|$)
+      captures:
+        1: comment.line.ahk
+        2: keyword.control.ahk
+        3: entity.name.function.ahk
+      push: match-functions-custom
+
+  match-functions-custom:
+    - meta_scope: meta.function.ahk
+    - include: match-functions
+    - include: custom-function-parameter
+
+  custom-function-parameter:
+    - match: \(
+      scope: punctuation.section.parens.begin.ahk
+      push: pop-on-function-parameter-inner
+      pop: 1
+    - match: \)
+      scope: invalid.illegal.ahk
+
+  pop-on-function-parameter-inner:
+    - meta_scope: meta.parameters.ahk
+    - include: pop-on-function-parameter-close
+    - include: match-function-parameters
+
+  pop-on-function-parameter-close:
+    - match: \)
+      scope: punctuation.section.parens.end.ahk
+      pop: 1
+
+  match-function-parameters:
+    - match: (\w+)
+      scope: variable.parameter.function.ahk
+    - match: (\?|\&)
+      scope: keyword.operator.ahk
+    - match: (:=)
+      scope: keyword.operator.assignment.ahk
+      push: match-parameters-assignment
+
+  match-parameters-assignment:
+      - meta_scope: parameters.assignment.ahk
+      - match: (?=,|\))
+        pop: 1
+      - include: match-keywords
+      - include: match-constants
+      - include: match-hotkeys
+      - include: match-functions
+      - include: match-literals
+      - include: match-operators
+      - include: match-variables
+
+  match-punctuation:
+    - include: match-parens
+    - include: match-brackets
+    - include: match-braces
+    - include: match-separator
+    - include: match-accessor
+
+  match-parens:
+    - match: \(
+      scope: punctuation.section.parens.begin.ahk
+      push: pop-parens-inner
+    - match: \)
+      scope: invalid.illegal.ahk
+
+  pop-parens-inner:
+    - include: pop-on-paren-end
+    - include: match-any
+
+  pop-on-paren-end:
+    - match: \)
+      scope: punctuation.section.parens.end.ahk
+      pop: 1
+
+  match-brackets:
+    - match: \[
+      scope: punctuation.section.bracket.begin.ahk
+      push: pop-brackets-inner
+    - match: \]
+      scope: invalid.illegal.ahk
+
+  pop-brackets-inner:
+    - include: pop-on-bracket-end
+    - include: match-any
+
+  pop-on-bracket-end:
+    - match: \]
+      scope: punctuation.section.brackets.end.ahk
+      pop: 1
+
+  match-braces:
+    - match: \{
+      scope: punctuation.section.braces.begin.ahk
+      push: pop-braces-inner
+    - match: \}
+      scope: invalid.illegal.ahk
+
+  pop-braces-inner:
+    - include: pop-on-brace-end
+    - include: match-any
+
+  pop-on-brace-end:
+    - match: \}
+      scope: punctuation.section.braces.end.ahk
+      pop: 1
+
+  match-separator:
+    - match: \,
+      scope: punctuation.separator.ahk
+
+  match-accessor:
+    - match: \.(?=\w)
+      scope: punctuation.accessor.dot.ahk
+
+  pop-now:
+    - match: ''
+      pop: 1
+
   pop-on-eol:
     - match: '{{newline}}'
-      pop: true
+      pop: 1
